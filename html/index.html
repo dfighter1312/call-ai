@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <title>Live Transcription</title>
+   </head>
+   <body>
+        <h1>Video Call In Blind</h1>
+        <p id="status">Connection status will go here</p>
+        <p id="transcript"></p>
+
+        <script>
+            navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+            if (!MediaRecorder.isTypeSupported('audio/webm'))
+                return alert('Browser not supported')
+
+            const mediaRecorder = new MediaRecorder(stream, {
+                mimeType: 'audio/webm',
+            })
+
+            const socket = new WebSocket('ws://localhost:5555/listen?user_id=23&scenario_id=4&language=en')
+
+            socket.onopen = () => {
+                document.querySelector('#status').textContent = 'Connected'
+                mediaRecorder.addEventListener('dataavailable', async (event) => {
+                    if (event.data.size > 0 && socket.readyState == 1) {
+                        socket.send(event.data)
+                    }
+            })
+            mediaRecorder.start(250)
+            }
+
+            function playBase64Audio(base64String) {
+                // Create a new Audio object
+                var audio = new Audio();
+
+                // Set the audio source by prefixing with the necessary data URI scheme
+                audio.src = 'data:audio/mp3;base64,' + base64String;
+
+                audio.onplay = () => {
+                    console.log('Audio played');
+                };
+
+                audio.onended = () => {
+                    console.log('Audio ended');
+                    mediaRecorder.resume();
+                };
+
+
+                // Play the audio
+                audio.play().catch(error => console.error('Error playing the audio:', error));
+            }
+
+            socket.onmessage = (message) => {
+                const received = JSON.parse(message.data);
+                console.log("Received:", received);
+                if (received) {
+                    document.querySelector('#transcript').textContent +=  ' ' + received.content + '\n'
+                    if (received.role === 'assistant') {
+                        playBase64Audio(received.audio_data);
+                    } else {
+                        mediaRecorder.pause();
+                        mediaRecorder.requestData();
+                    }
+                }
+
+           }
+
+           })
+
+
+
+
+        </script>
+
+   </body>
+</html>
