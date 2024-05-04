@@ -14,6 +14,14 @@ What things you need to install the software and how to install them:
 pip install -r requirements.txt
 ```
 
+You should also ask the author to get the .env file and Google service account file (JSON format), or get it on your own.
+```env
+DEEPGRAM_API_KEY=<YOUR_DEEPGRAM_API_KEY>
+OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+GROQ_API_KEY=<YOUR_GROQ_API_KEY>
+GOOGLE_ACCOUNT_CREDENTIALS=gg_service_account.json
+```
+
 ### Installing
 
 A step-by-step series of examples that tell you how to get a development environment running:
