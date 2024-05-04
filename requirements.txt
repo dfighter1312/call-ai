@@ -1,0 +1,13 @@
+Flask~=3.0.3
+deepgram-sdk
+python-dotenv~=1.0.1
+aiohttp-wsgi
+certifi~=2024.2.2
+aiohttp~=3.9.5
+flask-socketio
+openai~=1.25.1
+pydantic~=2.7.1
+groq==0.5.0
+tiktoken~=0.6.0
+websockets~=12.0
+google-cloud-texttospeech~=2.16.3
