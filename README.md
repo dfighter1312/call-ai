@@ -57,14 +57,20 @@ This system is composed of three main components:
 1. **Speech-to-Text Model:** Converts user speech into text
 - [x] Deepgram
 - [x] Google STT
-- [] OpenAI Whisper
+- [ ] OpenAI Whisper
 2. **Large Language Model (LLM):** Processes the text to generate intelligent responses. 
 - [x] OpenAI
 - [x] Groq
-- [] Hugging Face LLMs
+- [ ] Hugging Face LLMs
 3. **Text-to-Speech Model:** Converts the text responses back into speech, allowing for a spoken conversation with the AI.
 - [x] Google TTS
 - [x] ElevenLabs
+
+## Planning updates
+
+- Updating multiple languages chat
+- Adding prompt for every session
+- RAG integration
 
 ## Contributing
 
