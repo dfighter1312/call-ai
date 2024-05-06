@@ -48,7 +48,8 @@ To start the system, run the following command:
 python main.py
 ```
 
-Follow the on-screen instructions to interact with the AI. Make sure your microphone is enabled as the system listens to your input in real-time.
+Then, open the `index.html` file under the `html` folder to start the conversation. 
+Make sure your microphone is enabled with sufficient permissions as the system listens to your input in real-time.
 
 ## Architecture
 
@@ -57,14 +58,20 @@ This system is composed of three main components:
 1. **Speech-to-Text Model:** Converts user speech into text
 - [x] Deepgram
 - [x] Google STT
-- [] OpenAI Whisper
+- [ ] OpenAI Whisper
 2. **Large Language Model (LLM):** Processes the text to generate intelligent responses. 
 - [x] OpenAI
 - [x] Groq
-- [] Hugging Face LLMs
+- [ ] Hugging Face LLMs
 3. **Text-to-Speech Model:** Converts the text responses back into speech, allowing for a spoken conversation with the AI.
 - [x] Google TTS
 - [x] ElevenLabs
+
+## Planning updates
+
+- Updating multiple languages chat
+- Adding prompt for every session
+- RAG integration
 
 ## Contributing
 
