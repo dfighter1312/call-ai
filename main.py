@@ -33,7 +33,7 @@ async def handle_connection(websocket: WebSocketServerProtocol, path: str):
     )
     try:
         if request.path == "/listen":
-            connected_tts_models[client_id] = SpeechToText("google")
+            connected_tts_models[client_id] = SpeechToText("deepgram")
 
             # Retrieve the session and text to speech instance again from the list
             session = connected_clients[client_id]

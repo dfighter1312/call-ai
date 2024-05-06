@@ -15,20 +15,19 @@ class OpenAIModel(BaseLLM):
 
     def __init__(self, model: Literal["gpt-3.5", "gpt-4"]):
         if model == "gpt-3.5":
-            self.chat_model = "gpt-3.5-turbo"
-            self.completion_model = "gpt-3.5-turbo-instruct"
+            self.set_models("gpt-3.5-turbo", "gpt-3.5-turbo-instruct")
         elif model == "gpt-4":
-            self.chat_model = "gpt-4-1106-preview"
-            self.completion_model = "gpt-4-1106-preview"
-        self.vision_model = "gpt-4-vision-preview"
+            self.set_models("gpt-4-1106-preview", "gpt-4-1106-preview")
+        else:
+            raise ValueError(f"Invalid model: {model}")
 
-        self.client = OpenAI()
 
     def format_messages(self, message_history: List[Message]) -> OpenAIChatRequest:
         return OpenAIChatRequest(messages=[m.model_dump() for m in message_history])
 
     def get_chat_response(self, request: OpenAIChatRequest) -> OpenAIChatResponse:
-        response = self.client.chat.completions.create(
+        client = OpenAI()
+        response = client.chat.completions.create(
             model=self.chat_model,
             messages=request.model_dump()["messages"]
         )

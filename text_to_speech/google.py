@@ -16,7 +16,6 @@ client = tts.TextToSpeechClient.from_service_account_json(GOOGLE_ACCOUNT_CREDENT
 class GoogleTextToSpeech(BaseTextToSpeech):
 
     def synthesize(self, text: str, voice: str = 'en-US', language: Language = Language("English")) -> str:
-        language_code = "-".join(voice.split("-")[:2])
         text_input = tts.SynthesisInput(text=text)
         voice_params = tts.VoiceSelectionParams(
             language_code=language.bcp_code, name=voice

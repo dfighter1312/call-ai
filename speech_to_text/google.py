@@ -14,6 +14,7 @@ from google.cloud.speech import SpeechClient, RecognitionConfig, StreamingRecogn
 from session.manage import Session
 from speech_to_text.base import BaseSpeechToText
 from utils.tags.classes import experimental
+from utils.types import Message
 from utils.types.language import Language
 
 GOOGLE_ACCOUNT_CREDENTIALS = os.getenv('GOOGLE_ACCOUNT_CREDENTIALS')
@@ -44,18 +45,27 @@ class GoogleTTS(BaseSpeechToText):
         print("Start generating transcripts")
         for response in responses:
             for result in response.results:
-                print(f"Finished: {result.is_final}")
-                print(f"Stability: {result.stability}")
                 alternatives = result.alternatives
                 # The alternatives are ordered from most likely to least.
                 # transcript = alternatives[0].transcript
                 for alternative in alternatives:
-                    print(f"Confidence: {alternative.confidence}")
-                    print(f"Transcript: {alternative.transcript}")
+                    sentence = alternative.transcript
                     loop.run_until_complete(self.session.websocket.send(json.dumps({
                         "role": "user",
-                        "content": f"User: {alternative.transcript}"
+                        "content": f"User: {sentence}"
                     })))
+                    self.session.history.messages.append(Message(role="user", content=sentence))
+                    assistant_response = self.session.chat_model.send(self.session.history.messages)
+                    audio_data = self.session.text_to_speech.synthesize(assistant_response)
+                    loop.run_until_complete(
+                        self.session.websocket.send(json.dumps({
+                            "role": "assistant",
+                            "content": f"Assistant: {assistant_response}",
+                            "audio_data": audio_data
+                        }))
+                    )
+
+                    self.session.reset_last_text_spoken()
 
         # for response in responses:
         #     print("Received response: {}".format(response))
