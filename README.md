@@ -19,6 +19,7 @@ You should also ask the author to get the .env file and Google service account f
 DEEPGRAM_API_KEY=<YOUR_DEEPGRAM_API_KEY>
 OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 GROQ_API_KEY=<YOUR_GROQ_API_KEY>
+ELEVENLABS_API_KEY=<YOUR_ELEVENLABS_API_KEY>
 GOOGLE_ACCOUNT_CREDENTIALS=gg_service_account.json
 ```
 
