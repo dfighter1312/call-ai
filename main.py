@@ -23,7 +23,7 @@ async def handle_connection(websocket: WebSocketServerProtocol, path: str):
     request = parse_path(path)
     client_id = str(uuid.uuid4())
 
-    # TODO: Collect more information from User ID and Scenario ID, with the corresponding chat models
+    # TODO: Collect calling information
     language = Language("English")
     connected_clients[client_id] = Session(
         websocket=websocket,

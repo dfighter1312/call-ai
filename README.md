@@ -14,7 +14,7 @@ What things you need to install the software and how to install them:
 pip install -r requirements.txt
 ```
 
-You should also ask the author to get the .env file and Google service account file (JSON format), or get it on your own.
+Form your `.env` file by getting API keys from the third-party providers, depending on which provider you want to use on each component.
 ```env
 DEEPGRAM_API_KEY=<YOUR_DEEPGRAM_API_KEY>
 OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
@@ -54,13 +54,21 @@ Follow the on-screen instructions to interact with the AI. Make sure your microp
 
 This system is composed of three main components:
 
-1. **Speech-to-Text Model:** Converts user speech into text. This repository uses Deepgram.
-2. **Large Language Model (LLM):** Processes the text to generate intelligent responses. This implementation utilizes GPT-3.5 Turbo.
-3. **Text-to-Speech Model:** Converts the text responses back into speech, allowing for a spoken conversation with the AI. Google TTS is used here.
+1. **Speech-to-Text Model:** Converts user speech into text
+- [x] Deepgram
+- [x] Google STT
+- [] OpenAI Whisper
+2. **Large Language Model (LLM):** Processes the text to generate intelligent responses. 
+- [x] OpenAI
+- [x] Groq
+- [] Hugging Face LLMs
+3. **Text-to-Speech Model:** Converts the text responses back into speech, allowing for a spoken conversation with the AI.
+- [x] Google TTS
+- [x] ElevenLabs
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Contributions are unavailable at this time. If you are willing for any contributions, please contact me at [dfighter1312](https://github.com/dfighter1312).
 
 ## Authors
 
@@ -69,9 +77,3 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc.
