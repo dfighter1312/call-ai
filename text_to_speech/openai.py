@@ -1,6 +1,9 @@
-from text_to_speech.base import BaseTextToSpeech
+from utils.tags.classes import experimental
+from utils.types.language import Language
+from .base import BaseTextToSpeech
 
 
+@experimental
 class OpenAITextToSpeech(BaseTextToSpeech):
-    def synthesize(self, text: str, voice: str = 'en-US', language: str = 'en-US') -> str:
+    def synthesize(self, text: str, voice: str = 'en-US', language: Language = Language("English")) -> str:
         pass

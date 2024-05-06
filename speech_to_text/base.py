@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, Dict, Any
 
 from session.manage import Session
+from utils.types.language import Language
 
 
 class BaseSpeechToText(ABC):
@@ -10,7 +11,7 @@ class BaseSpeechToText(ABC):
             self,
             session: Session,
             model: Optional[str] = None,
-            language: Optional[str] = None,
+            language: Optional[Language] = None,
             configs: Dict[str, Any] = None
     ):
         self._session = session
@@ -20,20 +21,15 @@ class BaseSpeechToText(ABC):
         self._connection = None
 
     @abstractmethod
-    async def _connect(
-            self,
-            model: Optional[str] = None,
-            language: Optional[str] = None,
-            configs: Dict[str, Any] = None
-    ) -> None:
+    async def connect(self) -> None:
         pass
 
     @abstractmethod
-    async def _disconnect(self) -> None:
+    async def disconnect(self) -> None:
         pass
 
     @abstractmethod
-    async def _send(self, message: str) -> None:
+    async def send(self, message: str) -> None:
         pass
 
     @property
@@ -52,12 +48,14 @@ class BaseSpeechToText(ABC):
     def connection(self, connection):
         self._connection = connection
 
-    async def connect(self):
-        return await self._connect(self._model, self._language, self._configs)
+    @property
+    def model(self):
+        return self._model
 
-    async def disconnect(self):
-        await self._disconnect()
+    @property
+    def language(self):
+        return self._language
 
-    async def send(self, message: str) -> None:
-        if self.connection:
-            await self._send(message)
+    @property
+    def configs(self):
+        return self._configs

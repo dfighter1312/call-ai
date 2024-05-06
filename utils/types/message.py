@@ -1,13 +1,8 @@
-from enum import Enum
 from typing import Optional
 
 from pydantic import BaseModel
 
-
-class ChatRole(str, Enum):
-    USER = "user"
-    ASSISTANT = "assistant"
-    SYSTEM = "system"
+from utils.enums.role import ChatRole
 
 
 class Message(BaseModel):

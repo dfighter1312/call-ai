@@ -4,7 +4,8 @@ import os
 import google.cloud.texttospeech as tts
 from dotenv import load_dotenv
 
-from text_to_speech.base import BaseTextToSpeech
+from utils.types.language import Language
+from .base import BaseTextToSpeech
 
 load_dotenv()
 
@@ -14,11 +15,11 @@ client = tts.TextToSpeechClient.from_service_account_json(GOOGLE_ACCOUNT_CREDENT
 
 class GoogleTextToSpeech(BaseTextToSpeech):
 
-    def synthesize(self, text: str, voice: str = 'en-US', language: str = 'en-US') -> str:
+    def synthesize(self, text: str, voice: str = 'en-US', language: Language = Language("English")) -> str:
         language_code = "-".join(voice.split("-")[:2])
         text_input = tts.SynthesisInput(text=text)
         voice_params = tts.VoiceSelectionParams(
-            language_code=language_code, name=voice
+            language_code=language.bcp_code, name=voice
         )
         audio_config = tts.AudioConfig(audio_encoding=tts.AudioEncoding.LINEAR16)
 

@@ -1,16 +1,18 @@
 from typing import Any, Optional, Dict, Union
 
+from session.manage import Session
+from utils.enums import SpeechToTextProvider
+from utils.types.language import Language
+from .base import BaseSpeechToText
 from .deepgram import DeepgramTTS
 from .google import GoogleTTS
-
-from utils.types import SpeechToTextProvider
-from session.manage import Session
-from .base import BaseSpeechToText
 
 
 class SpeechToText:
     models: dict[SpeechToTextProvider, type[BaseSpeechToText]] = {
         SpeechToTextProvider.DEEPGRAM: DeepgramTTS,
+
+        # Experimental classes
         SpeechToTextProvider.GOOGLE: GoogleTTS,
     }
 
@@ -18,7 +20,7 @@ class SpeechToText:
             self,
             provider: Union[str, SpeechToTextProvider],
             model: Optional[str] = None,
-            language: Optional[str] = None,
+            language: Optional[Language] = Language("English"),
             configs: Dict[str, Any] = None
     ) -> None:
         if isinstance(provider, str):
@@ -33,7 +35,7 @@ class SpeechToText:
         self._model = model
 
     async def start(self, session: Session) -> BaseSpeechToText:
-        self._model_instance = self._model_cls(session, self._language, self._config)
+        self._model_instance = self._model_cls(session, self._model, self._language, self._config)
         await self._model_instance.connect()
         return self._model_instance
 

@@ -3,7 +3,7 @@ from typing import Union, Dict, List
 from utils.types import Message
 from .base import BaseLLM
 from .openai import OpenAIModel
-from utils.types.llm import LLMModel
+from utils.enums import LLMModel
 
 
 class LLM:

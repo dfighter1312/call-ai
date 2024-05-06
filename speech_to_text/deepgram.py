@@ -142,20 +142,15 @@ class DeepgramTTS(BaseSpeechToText):
         except Exception as e:
             raise Exception(f'Could not open socket: {e}')
 
-    async def _connect(
-            self,
-            model: Optional[str] = None,
-            language: Optional[str] = None,
-            configs: Dict[str, Any] = None
-    ) -> None:
-        deepgram_socket = await self._get_deepgram_connection(model, language, configs)
+    async def connect(self) -> None:
+        deepgram_socket = await self._get_deepgram_connection(self.model, self.language.bcp_code, self.configs)
         self.connection = deepgram_socket
         return self.connection
 
-    async def _disconnect(self) -> None:
+    async def disconnect(self) -> None:
         if self.connection:
             self.connection.finish()
 
-    async def _send(self, message: str) -> None:
+    async def send(self, message: str) -> None:
         if self.connection is not None:
             self.connection.send(message)

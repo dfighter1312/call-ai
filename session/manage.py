@@ -20,7 +20,6 @@ class Session:
     text_to_speech: TextToSpeech
     """Text to speech instance"""
 
-
     def __init__(
             self,
             websocket: WebSocketServerProtocol,

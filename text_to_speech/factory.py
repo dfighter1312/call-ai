@@ -1,6 +1,7 @@
 from typing import Union, Optional
 
-from utils.types.text_to_speech import TextToSpeechProvider
+from utils.enums import TextToSpeechProvider
+from utils.types.language import Language
 from .elevenlabs import ElevenLabsTextToSpeech
 from .google import GoogleTextToSpeech
 from .openai import OpenAITextToSpeech
@@ -17,7 +18,7 @@ class TextToSpeech:
             self,
             provider: Union[str, TextToSpeechProvider],
             voice: Optional[str] = None,
-            language: Optional[str] = None
+            language: Optional[Language] = None
     ):
         if isinstance(provider, str):
             provider = TextToSpeechProvider(provider)
