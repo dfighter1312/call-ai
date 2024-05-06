@@ -63,7 +63,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-* **Darwin Nguyen (Hoang-Dung Nguyen)** - *Initial work* - [YourUsername](https://github.com/dfighter1312)
+* **Darwin Nguyen (Hoang-Dung Nguyen)** - *Initial work* - [dfighter1312](https://github.com/dfighter1312)
 
 ## License
 
